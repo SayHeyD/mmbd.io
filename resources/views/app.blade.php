@@ -16,6 +16,9 @@
         @inertiaHead
     </head>
     <body class="font-sans antialiased">
+        <noscript>
+            <p>mmbd.io needs javascript to run properly, please activate javascript and refresh the page</p>
+        </noscript>
         @inertia
     </body>
 </html>
