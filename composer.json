@@ -17,6 +17,7 @@
         "ext-openssl": "*"
     },
     "require-dev": {
+        "brianium/paratest": "^7.4",
         "laravel/pint": "^1.0",
         "laravel/sail": "^1.18",
         "mockery/mockery": "^1.4.4",
