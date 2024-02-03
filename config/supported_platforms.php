@@ -6,6 +6,8 @@ return [
      */
     'base_urls' => [
         'https://tiktok.com',
-        'https://youtube.com'
+        'https://youtube.com',
+        'https://www.tiktok.com',
+        'https://www.youtube.com'
     ]
 ];
