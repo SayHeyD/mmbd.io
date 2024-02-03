@@ -20,6 +20,9 @@
         "vue": "^3.2.31"
     },
     "dependencies": {
-        "vue-honeypot": "^3.0.1"
+        "copy-to-clipboard": "^3.3.3",
+        "primevue": "^3.47.2",
+        "vue-honeypot": "^3.0.1",
+        "vue-toast-notification": "^3.1.2"
     }
 }
