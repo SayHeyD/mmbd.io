@@ -5,12 +5,13 @@ namespace Tests\Feature;
 // use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class ExampleTest extends TestCase
+class IndexPageTest extends TestCase
 {
     /**
      * A basic test example.
      */
-    public function test_the_application_returns_a_successful_response(): void
+
+    public function test_if_the_index_route_returns_a_200_status_code(): void
     {
         $response = $this->get('/');
 
