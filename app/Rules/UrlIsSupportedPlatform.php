@@ -16,11 +16,16 @@ class UrlIsSupportedPlatform implements ValidationRule
     {
         $supportedBaseUrls = config('supported_platforms.base_urls', []);
 
+        $foundMatch = false;
+
         foreach ($supportedBaseUrls as $baseUrl) {
             if (str_starts_with($value, $baseUrl)) {
+                $foundMatch = true;
                 break;
             }
+        }
 
+        if (!$foundMatch) {
             $fail('The :attribute must be a supported base URL');
         }
     }
