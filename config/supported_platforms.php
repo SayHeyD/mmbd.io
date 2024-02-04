@@ -10,6 +10,7 @@ return [
     'platforms' => [
         'youtube' => [
             'urls' => [
+                'https://youtu.be',
                 'https://youtube.com',
                 'https://www.youtube.com',
             ],
