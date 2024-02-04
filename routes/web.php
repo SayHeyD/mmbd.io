@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HowItWorksController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
@@ -17,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [IndexController::class, 'index'])->name('index');
+Route::get('/how-it-works', [HowItWorksController::class, 'show'])->name('how-it-works.show');
 
 Route::get('/{post:slug}', [PostController::class, 'show'])->name('post.show');
 
