@@ -53,7 +53,9 @@ class PostController extends Controller
         }
 
         $post->expires_at = Carbon::now()->addDays(7)->toDateTime();
-        $post->original_url = $request->link;
+
+        $post->setOriginalUrl($request->link);
+        $post->setMediaType();
 
         $slugFound = true;
         $length = random_int(4, 12);
