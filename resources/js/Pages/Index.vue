@@ -30,42 +30,45 @@ const submitForm = () => {
 <template>
     <Head title="Welcome" />
 
-    <div class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
-        <div v-if="canLogin && false" class="sm:fixed sm:top-0 sm:end-0 p-6 text-end z-10">
-            <Link v-if="$page.props.auth.user" :href="route('dashboard')" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</Link>
+    <div class="flex flex-col justify-center items-center sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
+      <div v-if="canLogin && false" class="sm:fixed sm:top-0 sm:end-0 p-6 text-end z-10">
+          <Link v-if="$page.props.auth.user" :href="route('dashboard')" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</Link>
 
-            <template v-else>
-                <Link :href="route('login')" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log in</Link>
+          <template v-else>
+              <Link :href="route('login')" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log in</Link>
 
-                <Link v-if="canRegister" :href="route('register')" class="ms-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</Link>
-            </template>
+              <Link v-if="canRegister" :href="route('register')" class="ms-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</Link>
+          </template>
+      </div>
+
+      <div class="max-w-7xl mx-auto pt-32 flex-1 p-6 lg:p-8">
+        <div class="dark:text-gray-200 text-center flex flex-col justify-center items-center">
+          <h1 class="text-2xl font-bold mb-4">mmbd.io</h1>
+          <p class="text-lg mb-6">Does your grandma get confused by cookie banners too? 👵🏼🍪</p>
+
+          <p class="text-sm dark:text-gray-400">Paste the link to the post you'd like to share and receive a cookie-banner free version!</p>
+          <form @submit.prevent="submitForm"
+                class="mt-8 w-full flex flex-col">
+            <TextInput class="w-full mb-4 border"
+                       :error="form.errors['link'] != null && !form.isDirty"
+                       autocomplete="off"
+                       placeholder="https://tiktok.com/..." v-model="form.link" />
+            <div v-if="form.errors['link'] != null"
+                 class="text-red-700 text-start mx-auto mb-4">
+              <ul class="list-disc">
+                <li v-text="form.errors['link']"></li>
+              </ul>
+            </div>
+
+            <vue-honeypot ref="honeypot" />
+
+            <button class="bg-green-700 mx-auto p-4 rounded" type="submit">Get your link!</button>
+          </form>
         </div>
-
-        <div class="max-w-7xl mx-auto pt-32 p-6 lg:p-8">
-          <div class="dark:text-gray-200 text-center flex flex-col justify-center items-center">
-            <h1 class="text-2xl font-bold mb-4">mmbd.io</h1>
-            <p class="text-lg mb-6">Does your grandma get confused by cookie banners too? 👵🏼🍪</p>
-
-            <p class="text-sm dark:text-gray-400">Paste the link to the post you'd like to share and receive a cookie-banner free version!</p>
-            <form @submit.prevent="submitForm"
-                  class="mt-8 w-full flex flex-col">
-              <TextInput class="w-full mb-4 border"
-                         :error="form.errors['link'] != null && !form.isDirty"
-                         autocomplete="off"
-                         placeholder="https://tiktok.com/..." v-model="form.link" />
-              <div v-if="form.errors['link'] != null"
-                   class="text-red-700 text-start mx-auto mb-4">
-                <ul class="list-disc">
-                  <li v-text="form.errors['link']"></li>
-                </ul>
-              </div>
-
-              <vue-honeypot ref="honeypot" />
-
-              <button class="bg-green-700 mx-auto p-4 rounded" type="submit">Get your link!</button>
-            </form>
-          </div>
-        </div>
+      </div>
+      <p class="p-4">
+        <Link :href="route('how-it-works.show')" class="self-end font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">How it works</Link>
+      </p>
     </div>
 </template>
 
