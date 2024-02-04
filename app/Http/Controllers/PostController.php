@@ -67,12 +67,11 @@ class PostController extends Controller
         $post->save();
 
         session()->flash('flash.slug', $post->slug);
-        return redirect()->route('post.success');
 
         if (Auth::check()) {
             return redirect()->route('post.dashboard');
         } else {
-            return redirect()->route('post.success')->with('slug', $post->slug);
+            return redirect()->route('post.success');
         }
     }
 
