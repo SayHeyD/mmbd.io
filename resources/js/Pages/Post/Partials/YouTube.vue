@@ -8,7 +8,15 @@ const getEmbedUrl = () => {
     const urlParams = new URLSearchParams(searchString)
     const videoId = urlParams.get('v')
 
-    return `https://www.youtube.com/embed/${videoId}`
+    const timestamp = urlParams.get('t')
+
+    let embedUrl = `https://www.youtube-nocookie.com/embed/${videoId}`
+
+    if (timestamp != null) {
+        embedUrl += `?start=${timestamp}`
+    }
+
+    return embedUrl
 }
 </script>
 

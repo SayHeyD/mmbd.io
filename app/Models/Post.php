@@ -62,6 +62,7 @@ class Post extends Model
         $queryParameters = explode('&', $urlQueries);
 
         $videoId = '';
+        $timestamp = '';
 
         if ($parsedUrl['host'] == 'youtu.be') {
             $videoId = Post::getVideoIdFromYoutubeShareUrl($url);
@@ -69,13 +70,26 @@ class Post extends Model
 
         foreach ($queryParameters as $param) {
             $key = explode('=', $param)[0];
+            $value = explode('=', $param)[1];
 
             if ($key == 'v') {
-                $videoId = $param;
+                $videoId = $value;
+                continue;
+            }
+
+            if ($key == 't') {
+
+                $timestamp = $value;
             }
         }
 
-        return 'https://www.youtube.com/watch?v=' . $videoId;
+        $finishedUrl = 'https://www.youtube.com/watch?v=' . $videoId;
+
+        if ($timestamp !== '') {
+            $finishedUrl .= '&t=' . $timestamp;
+        }
+
+        return $finishedUrl;
     }
 
     private static function getVideoIdFromYoutubeShareUrl(string $url): string
@@ -83,5 +97,10 @@ class Post extends Model
         $parsedUrl = parse_url($url);
 
         return str_replace('/', '', $parsedUrl['path']);
+    }
+
+    private static function getTimestampFromYoutubeUrl(string $url): string
+    {
+
     }
 }
