@@ -2,12 +2,21 @@
 
 return [
     /**
-     * The supported Social media platform base URLs by the application
+     * The supported Social media platforms and base URLs by the application
      */
-    'base_urls' => [
-        'https://tiktok.com',
-        'https://youtube.com',
-        'https://www.tiktok.com',
-        'https://www.youtube.com'
+    'platforms' => [
+        'youtube' => [
+            'urls' => [
+                'https://youtube.com',
+                'https://www.youtube.com',
+            ],
+        ],
+
+        'tiktok' => [
+            'urls' => [
+                'https://tiktok.com',
+                'https://www.tiktok.com',
+            ],
+        ]
     ]
 ];
