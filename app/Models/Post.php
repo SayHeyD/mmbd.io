@@ -61,16 +61,27 @@ class Post extends Model
         $urlQueries = $parsedUrl['query'];
         $queryParameters = explode('&', $urlQueries);
 
+        $videoId = '';
+
+        if ($parsedUrl['host'] == 'youtu.be') {
+            $videoId = Post::getVideoIdFromYoutubeShareUrl($url);
+        }
+
         foreach ($queryParameters as $param) {
             $key = explode('=', $param)[0];
 
             if ($key == 'v') {
-                return $parsedUrl['scheme'] . '://'
-                    . $parsedUrl['host'] . $parsedUrl['path'] . '?'
-                    . $param;
+                $videoId = $param;
             }
         }
 
-        return null;
+        return 'https://www.youtube.com/watch?v=' . $videoId;
+    }
+
+    private static function getVideoIdFromYoutubeShareUrl(string $url): string
+    {
+        $parsedUrl = parse_url($url);
+
+        return str_replace('/', '', $parsedUrl['path']);
     }
 }
