@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('team_id')->nullable();
             $table->text('name')->nullable();
+            $table->text('type');
             $table->string('slug')->unique();
             $table->text('original_url');
             $table->timestamp('expires_at');
