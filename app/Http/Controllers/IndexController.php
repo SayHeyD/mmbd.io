@@ -10,11 +10,9 @@ class IndexController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Welcome', [
+        return Inertia::render('Index', [
             'canLogin' => Route::has('login'),
-            'canRegister' => Route::has('register'),
-            'laravelVersion' => Application::VERSION,
-            'phpVersion' => PHP_VERSION,
+            'canRegister' => Route::has('register')
         ]);
     }
 }
