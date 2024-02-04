@@ -18,10 +18,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [IndexController::class, 'index'])->name('index');
 
+Route::get('/{post:slug}', [PostController::class, 'show'])->name('post.show');
+
 Route::prefix('/post')->name('post.')->group(function () {
     Route::put('/', [PostController::class, 'store'])->name('store');
     Route::get('/success', [PostController::class, 'success'])->name('success');
-    Route::get('/{post:slug}', [PostController::class, 'show'])->name('show');
 });
 
 Route::middleware([
