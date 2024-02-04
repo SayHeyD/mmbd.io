@@ -2,8 +2,10 @@
 
 namespace App\Rules;
 
+use App\Models\Post;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
+use Illuminate\Support\Facades\Http;
 
 class UrlIsSupportedPlatform implements ValidationRule
 {
@@ -14,19 +16,49 @@ class UrlIsSupportedPlatform implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        $supportedBaseUrls = config('supported_platforms.base_urls', []);
+        $supportedPlatforms = config('supported_platforms.platforms', []);
 
-        $foundMatch = false;
+        foreach ($supportedPlatforms as $platform) {
+            foreach ($platform['urls'] as $baseUrl) {
+                if (str_starts_with($value, $baseUrl)) {
 
-        foreach ($supportedBaseUrls as $baseUrl) {
-            if (str_starts_with($value, $baseUrl)) {
-                $foundMatch = true;
-                break;
+                    switch (Post::selectMediaType($value)) {
+                        case 'youtube':
+                            if (! $this->validYouTubeUrl($value)) {
+                                // Break out of switch and 2 foreach loops
+                                break 3;
+                            }
+
+                            return;
+                        case 'tiktok':
+                            if (! $this->validTikTokUrl($value)) {
+                                // Break out of switch and 2 foreach loops
+                                break 3;
+                            }
+
+                            return;
+                    }
+                }
             }
         }
 
-        if (!$foundMatch) {
-            $fail('The :attribute must be a supported base URL');
+        $fail('The :attribute must be a supported and valid URL');
+    }
+
+    private function validYouTubeUrl(string $url): bool
+    {
+        $youtubeUrl = Post::getYoutubeUrl($url);
+        $response = Http::head($youtubeUrl);
+
+        if ($response->status() != 200) {
+            return false;
         }
+
+        return true;
+    }
+
+    private function validTikTokUrl(string $url): bool
+    {
+        return true;
     }
 }
