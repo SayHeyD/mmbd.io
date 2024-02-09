@@ -1,6 +1,8 @@
 <script setup>
 import {Head, Link} from '@inertiajs/vue3';
 import YouTube from "@/Pages/Post/Partials/YouTube.vue";
+import {onMounted, ref} from "vue";
+import {c} from "../../../../public/build/assets/app-OVSiObGU.js";
 
 const props = defineProps({
     post: Object,
@@ -8,10 +10,27 @@ const props = defineProps({
     canRegister: Boolean
 });
 
+const currentUrl = ref("")
+
+onMounted(() => {
+    currentUrl.value = route(route().current(), props.post.slug)
+})
+
 </script>
 
 <template>
-  <Head title="Welcome" />
+  <Head>
+    <title>Success</title>
+
+    <meta v-if="post.name"
+          property="og:title" content="mmbd.io - {{ post.name }}" />
+    <meta v-else
+          property="og:title" content="mmbd.io" />
+
+    <meta v-if="currentUrl !== ''" property="og:url" :content="currentUrl">
+
+    <meta property="og:description" content="View your favourite social media posts without any cookie banners!">
+  </Head>
 
   <div class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
     <div v-if="canLogin && false" class="sm:fixed sm:top-0 sm:end-0 p-6 text-end z-10">
