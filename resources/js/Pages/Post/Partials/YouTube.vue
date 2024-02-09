@@ -22,7 +22,7 @@ const getEmbedUrl = () => {
 
 <template>
   <div class="iframe-container">
-    <iframe sandbox="allow-scripts allow-same-origin" class="responsive-iframe" :src="getEmbedUrl()" />
+    <iframe sandbox="allow-scripts allow-same-origin" allowfullscreen="allowfullscreen" class="responsive-iframe" :src="getEmbedUrl()" />
   </div>
 </template>
 

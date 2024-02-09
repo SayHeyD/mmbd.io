@@ -17,7 +17,8 @@ In other instances embedded content doesn't create cookies, or it can be prevent
 All embedded content is embedded from `www.youtube-nocookie.com` not from `www.youtube.com` directly. 
 The iframe used to show the YouTube video is also loaded with the [sandbox mode](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe?retiredLocale=de#sandbox) 
 enabled, only allowing `allow-scripts` to allow the execution of JavaScript from YouTube and the `allow-same-origin`
-which is required to load the video in the iframe at all.
+which is required to load the video in the iframe at all. The `allowfullscreen="allowfullscreen"` attribute is also
+set to allow YouTube to display the video in Fullscreen on [mmbd.io](https://mmbd.io).
 
 # Why does mmbd.io not display cookie messages?
 
