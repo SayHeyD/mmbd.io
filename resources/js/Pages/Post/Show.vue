@@ -43,7 +43,7 @@ onMounted(() => {
     </div>
 
     <div class="max-w-7xl mx-auto pt-32 p-6 lg:p-8">
-      <div class="dark:text-gray-200 text-center flex flex-col justify-center items-center">
+      <div class="text-gray-800 dark:text-gray-200 text-center flex flex-col justify-center items-center">
 
         <YouTube class="mb-8" v-if="post.type == 'youtube'" :post="post" />
 
