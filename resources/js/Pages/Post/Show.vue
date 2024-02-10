@@ -47,7 +47,7 @@ onMounted(() => {
 
         <YouTube class="mb-8" v-if="post.type == 'youtube'" :post="post" />
 
-        <div>
+        <div class="mt-6">
           <p class="mb-6">Want to share your own post?</p>
           <Link :href="route('index')" class="p-4 rounded bg-gray-800 hover:underline dark:bg-gray-200 text-gray-200 dark:text-gray-800">Create a new post</Link>
         </div>
