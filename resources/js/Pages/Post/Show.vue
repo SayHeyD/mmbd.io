@@ -2,7 +2,6 @@
 import {Head, Link} from '@inertiajs/vue3';
 import YouTube from "@/Pages/Post/Partials/YouTube.vue";
 import {onMounted, ref} from "vue";
-import {c} from "../../../../public/build/assets/app-OVSiObGU.js";
 
 const props = defineProps({
     post: Object,

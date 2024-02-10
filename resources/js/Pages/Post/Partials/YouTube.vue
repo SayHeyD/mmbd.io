@@ -1,4 +1,6 @@
 <script setup>
+import {Head} from '@inertiajs/vue3';
+
 const props = defineProps({
     post: Object
 })
@@ -18,9 +20,20 @@ const getEmbedUrl = () => {
 
     return embedUrl
 }
+
+const getThumbnailUrl = () => {
+    // Extract video id from url
+    let videoId = props.post.original_url.split('v=')[1];
+
+    // Generate thumbnail url
+    return "https://img.youtube.com/vi/" + videoId + "/0.jpg";
+}
 </script>
 
 <template>
+  <Head>
+    <meta property="og:image" :content="getThumbnailUrl()" />
+  </Head>
   <div class="iframe-container">
     <iframe sandbox="allow-scripts allow-same-origin" allowfullscreen="allowfullscreen" class="responsive-iframe" :src="getEmbedUrl()" />
   </div>
