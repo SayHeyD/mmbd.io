@@ -5,8 +5,6 @@ return [
      * The supported Social media platforms and base URLs by the application
      */
 
-    // TODO: Add support for urls starting with 'https://youtu.be/...'
-
     'platforms' => [
         'youtube' => [
             'urls' => [

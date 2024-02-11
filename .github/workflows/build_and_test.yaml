@@ -1,0 +1,70 @@
+name: 'Build and test'
+on:
+  push:
+    branches:
+      - staging
+      - dev
+  pull_request:
+    branches:
+      - main
+      - staging
+      - dev
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8.3
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_DATABASE: mmbd
+        ports:
+          - 3306:3306
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '21.6.1'
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+
+      - name: 'Install composer dependencies'
+        run: composer install
+
+      - name: 'Install npm dependencies'
+        run: npm ci
+
+      - name: 'Build frontend'
+        run: npm run build
+
+      - name: 'Create .env file'
+        run: cp .env.ci .env
+
+      - name: 'Generate laravel app key'
+        run: php artisan key:generate
+
+      - name: 'Migrate database'
+        run: php artisan migrate --seed
+
+      - name: 'Generate admin users'
+        run: php artisan admin:create-admin-user "Admin User" "admin@example.com"
+
+      - name: 'Install octane'
+        run: php artisan octane:install --no-interaction --server=roadrunner
+
+      - name: 'Start inertia SSR Server'
+        run: php artisan inertia:start-ssr > /dev/null &
+
+      - name: 'Execute tests'
+        id: tests
+        run: php artisan test -p
+
+      - name: 'Execute tests serially if parallel tests fail'
+        if: failure() && steps.tests.outcome == 'failure'
+        run: php artisan test

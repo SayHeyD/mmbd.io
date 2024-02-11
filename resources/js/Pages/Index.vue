@@ -42,7 +42,7 @@ const submitForm = () => {
       </div>
 
       <div class="max-w-7xl mx-auto pt-32 flex-1 p-6 lg:p-8">
-        <div class="dark:text-gray-200 text-center flex flex-col justify-center items-center">
+        <div class="text-gray-800 dark:text-gray-200 text-center flex flex-col justify-center items-center">
           <h1 class="text-2xl font-bold mb-4">mmbd.io</h1>
           <p class="text-lg mb-6">Does your grandma get confused by cookie banners too? 👵🏼🍪</p>
 
@@ -62,7 +62,7 @@ const submitForm = () => {
 
             <vue-honeypot ref="honeypot" />
 
-            <button class="bg-green-700 mx-auto p-4 rounded" type="submit">Get your link!</button>
+            <button class="bg-green-700 text-gray-200 mx-auto p-4 rounded" type="submit">Get your link!</button>
           </form>
         </div>
       </div>
