@@ -36,8 +36,6 @@ class CreatePostTest extends TestCase
             'link' => 'https://www.youtube.com/watch?v=0jYQ58e1yXs'
         ]);
 
-        dump();
-
         $this->assertTrue(session()->has('flash.slug'));
     }
 
