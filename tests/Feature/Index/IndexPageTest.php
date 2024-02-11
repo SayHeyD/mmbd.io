@@ -18,8 +18,4 @@ class IndexPageTest extends TestCase
 
         $response->assertStatus(200);
     }
-
-    public function test_ci_failure_step() {
-        $this->fail();
-    }
 }
