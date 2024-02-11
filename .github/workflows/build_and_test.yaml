@@ -62,8 +62,9 @@ jobs:
         run: php artisan inertia:start-ssr > /dev/null &
 
       - name: 'Execute tests'
+        id: tests
         run: php artisan test -p
 
       - name: 'Execute tests serially if parallel tests fail'
-        if: ${{ failure() }}
+        if: failure() && steps.tests.outcome == 'failure'
         run: php artisan test
