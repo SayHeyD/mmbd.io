@@ -38,7 +38,7 @@ const copyUrl = () => {
     </div>
 
     <div class="max-w-7xl mx-auto pt-32 p-6 lg:p-8">
-      <div class="dark:text-gray-200 text-center flex flex-col justify-center items-center">
+      <div class="dark:text-gray-200 text-gray-800 text-center flex flex-col justify-center items-center">
         <h3 class="text-xl mb-4">Your post is ready! 🎉</h3>
 
         <div @click="copyUrl" class="flex mb-4 w-full items-center">

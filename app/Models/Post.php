@@ -58,14 +58,27 @@ class Post extends Model
     public static function getYoutubeUrl(string $url): string|null
     {
         $parsedUrl = parse_url($url);
-        $urlQueries = $parsedUrl['query'];
-        $queryParameters = explode('&', $urlQueries);
+
+        if (array_key_exists('query', $parsedUrl)) {
+            $urlQueries = $parsedUrl['query'];
+            $queryParameters = explode('&', $urlQueries);
+        }
 
         $videoId = '';
         $timestamp = '';
 
         if ($parsedUrl['host'] == 'youtu.be') {
             $videoId = Post::getVideoIdFromYoutubeShareUrl($url);
+        }
+
+        if (str_contains($parsedUrl['path'], 'shorts')) {
+
+            $pattern = "/https:\/\/www\.youtube\.com\/shorts\/[a-zA-Z0-9_\-]*/";
+            preg_match($pattern, $url, $matches);
+
+            if ($matches) {
+                return $parsedUrl['scheme'] . '://' . $parsedUrl['host'] . $parsedUrl['path'];
+            }
         }
 
         foreach ($queryParameters as $param) {
@@ -78,7 +91,6 @@ class Post extends Model
             }
 
             if ($key == 't') {
-
                 $timestamp = $value;
             }
         }
@@ -97,10 +109,5 @@ class Post extends Model
         $parsedUrl = parse_url($url);
 
         return str_replace('/', '', $parsedUrl['path']);
-    }
-
-    private static function getTimestampFromYoutubeUrl(string $url): string
-    {
-
     }
 }

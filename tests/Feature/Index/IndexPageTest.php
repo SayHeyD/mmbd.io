@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Index;
 
 // use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -8,10 +8,11 @@ use Tests\TestCase;
 class IndexPageTest extends TestCase
 {
     /**
-     * A basic test example.
+     * Test if the index page returns a 200 status code
+     *
+     * @test
      */
-
-    public function test_if_the_index_route_returns_a_200_status_code(): void
+    public function index_route_returns_a_200_status_code(): void
     {
         $response = $this->get('/');
 

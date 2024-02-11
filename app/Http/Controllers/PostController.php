@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Post\CreatePost;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
@@ -46,29 +47,7 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request): RedirectResponse
     {
-        $post = new Post();
-
-        if (Auth::check()) {
-            $post->team_id = Auth::user()->currentTeam->id;
-        }
-
-        $post->expires_at = Carbon::now()->addDays(7)->toDateTime();
-
-        $post->setOriginalUrl($request->link);
-        $post->setMediaType();
-
-        $slugFound = true;
-        $length = random_int(4, 12);
-        $slug = bin2hex(openssl_random_pseudo_bytes($length));
-        while ($slugFound) {
-            $slugFound = Post::where('slug', $slug)->first() != null;
-        }
-
-        $post->slug = $slug;
-
-        $post->save();
-
-        session()->flash('flash.slug', $post->slug);
+        app(CreatePost::class)->Store($request);
 
         if (Auth::check()) {
             return redirect()->route('post.dashboard');

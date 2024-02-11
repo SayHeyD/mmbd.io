@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\AllowedIfAuthenticated;
 use App\Rules\UrlIsSupportedPlatform;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -24,6 +25,7 @@ class StorePostRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'name' => ['nullable', new AllowedIfAuthenticated],
             'link' => ['required', 'url', new UrlIsSupportedPlatform],
         ];
     }
