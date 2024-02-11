@@ -22,6 +22,7 @@ class CreatePost
 
         if (Auth::check()) {
             $post->team_id = Auth::user()->currentTeam->id;
+            $post->name = $request->name;
         }
 
         $post->expires_at = Carbon::now()->addDays(7)->toDateTime();
