@@ -1,9 +1,9 @@
 name: 'Build and test'
 on:
   push:
-#    branches:
-#      - staging
-#      - dev
+    branches:
+      - staging
+      - dev
   pull_request:
     branches:
       - main
