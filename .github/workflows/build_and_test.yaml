@@ -56,7 +56,7 @@ jobs:
         run: php artisan admin:create-admin-user "Admin User" "admin@example.com"
 
       - name: 'Install octane'
-        run: php artisan octane:install --no-interaction
+        run: php artisan octane:install --no-interaction --server=roadrunner
 
       - name: 'Start inertia SSR Server'
         run: php artisan inertia:start-ssr > /dev/null &
