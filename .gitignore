@@ -21,3 +21,7 @@ yarn-error.log
 /devdata
 rr
 .rr.yaml
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
