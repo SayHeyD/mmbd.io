@@ -73,11 +73,17 @@ class Post extends Model
 
         if (str_contains($parsedUrl['path'], 'shorts')) {
 
-            $pattern = "/https:\/\/www\.youtube\.com\/shorts\/[a-zA-Z0-9_\-]*/";
+            $pattern = "/https:\/\/(www\.)?youtube\.com\/shorts\/[a-zA-Z0-9_\-]*/";
             preg_match($pattern, $url, $matches);
 
+            $host = $parsedUrl['host'];
+
+            if (!str_starts_with($host, 'www')) {
+                $host = 'www.' . $host;
+            }
+
             if ($matches) {
-                return $parsedUrl['scheme'] . '://' . $parsedUrl['host'] . $parsedUrl['path'];
+                return $parsedUrl['scheme'] . '://' . $host . $parsedUrl['path'];
             }
         }
 
