@@ -20,6 +20,7 @@
         "vue": "^3.2.31"
     },
     "dependencies": {
+        "chokidar": "^3.6.0",
         "copy-to-clipboard": "^3.3.3",
         "primevue": "^3.47.2",
         "vue-honeypot": "^3.0.1",
