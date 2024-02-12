@@ -1,33 +1,36 @@
-name: 'Build and test'
+name: 'Build and test app'
+
 on:
+  push:
+    branches:
+      - playwright-e2e-tests
   pull_request:
     branches:
       - main
       - dev
+
+env:
+  DOCKER_MYSQL_IMAGE_TAG: mysql:8.3
+  NODE_VERSION: 21.6.1
+  PHP_VERSION: 8.3
+
 jobs:
-  build_and_test:
+  build:
+    name: build
     runs-on: ubuntu-latest
 
-    services:
-      mysql:
-        image: mysql:8.3
-        env:
-          MYSQL_ALLOW_EMPTY_PASSWORD: yes
-          MYSQL_DATABASE: mmbd
-        ports:
-          - 3306:3306
-
     steps:
+
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '21.6.1'
+          node-version: $NODE_VERSION
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.3'
+          php-version: $PHP_VERSION
 
       - name: 'Install composer dependencies'
         run: composer install
@@ -44,14 +47,72 @@ jobs:
       - name: 'Generate laravel app key'
         run: php artisan key:generate
 
+      - name: 'Install octane'
+        run: php artisan octane:install --no-interaction --server=roadrunner
+
+      - name: Archive installation artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: installation_artifacts
+          path: |
+            ./
+
+  e2e_tests:
+    name: e2e_tests
+    needs: build
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: $DOCKER_MYSQL_IMAGE_TAG
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_DATABASE: mmbd
+        ports:
+          - 3306:3306
+
+    steps:
+      - uses: actions/download-artifact@v4
+
       - name: 'Migrate database'
         run: php artisan migrate --seed
 
       - name: 'Generate admin users'
         run: php artisan admin:create-admin-user "Admin User" "admin@example.com"
 
-      - name: 'Install octane'
-        run: php artisan octane:install --no-interaction --server=roadrunner
+      - name: 'Start octane server'
+        run: php artisan octane:start > /dev/null &
+
+      - name: 'Start inertia SSR Server'
+        run: php artisan inertia:start-ssr > /dev/null &
+
+      - name: Run Playwright tests
+        run: npx playwright test
+
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
+
+  php_test:
+    name: php_test
+    needs: build
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: $DOCKER_MYSQL_IMAGE_TAG
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_DATABASE: mmbd
+        ports:
+          - 3306:3306
+
+    steps:
+      - uses: actions/download-artifact@v4
 
       - name: 'Start inertia SSR Server'
         run: php artisan inertia:start-ssr > /dev/null &
