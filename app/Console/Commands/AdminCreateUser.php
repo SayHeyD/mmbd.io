@@ -7,14 +7,14 @@ use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Hash;
 
-class CreateAdminUser extends Command
+class AdminCreateUser extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'admin:create-admin-user {name} {email}';
+    protected $signature = 'admin:create-user {name} {email}';
 
     /**
      * The console command description.
