@@ -23,9 +23,9 @@ jobs:
       - name: Output env vars
         id: env
         run: |
-          echo "::set-output name=DOCKER_MYSQL_IMAGE_TAG::'${{ DOCKER_MYSQL_IMAGE_TAG }}'"
-          echo "::set-output name=NODE_VERSION::'${{ NODE_VERSION }}'"
-          echo "::set-output name=PHP_VERSION::'${{ PHP_VERSION }}'"
+          echo "::set-output name=DOCKER_MYSQL_IMAGE_TAG::'${{ env.DOCKER_MYSQL_IMAGE_TAG }}'"
+          echo "::set-output name=NODE_VERSION::'${{ env.NODE_VERSION }}'"
+          echo "::set-output name=PHP_VERSION::'${{ env.PHP_VERSION }}'"
 
   build:
     name: build
