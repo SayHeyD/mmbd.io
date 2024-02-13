@@ -23,9 +23,18 @@ jobs:
       - name: Output env vars
         id: env
         run: |
-          echo "::set-output name=DOCKER_MYSQL_IMAGE_TAG::'${{ env.DOCKER_MYSQL_IMAGE_TAG }}'"
-          echo "::set-output name=NODE_VERSION::'${{ env.NODE_VERSION }}'"
-          echo "::set-output name=PHP_VERSION::'${{ env.PHP_VERSION }}'"
+          echo "${{ env.DOCKER_MYSQL_IMAGE_TAG }}" >> "GITHUB_OUTPUT"
+          echo "${{ env.NODE_VERSION }}" >> "GITHUB_OUTPUT"
+          echo "${{ env.PHP_VERSION }}" >> "GITHUB_OUTPUT"
+
+  test:
+    name: test
+    needs: prepare
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: test
+        run: echo ${{ needs.prepare.outputs.DOCKER_MYSQL_IMAGE_TAG }}
 
   build:
     name: build
@@ -78,7 +87,7 @@ jobs:
 
     services:
       mysql:
-        image: ${{ needs.env.outputs.DOCKER_MYSQL_IMAGE_TAG }}
+        image: ${{ needs.prepare.outputs.DOCKER_MYSQL_IMAGE_TAG }}
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
           MYSQL_DATABASE: mmbd
@@ -117,7 +126,7 @@ jobs:
 
     services:
       mysql:
-        image: ${{ needs.env.outputs.DOCKER_MYSQL_IMAGE_TAG }}
+        image: ${{ needs.prepare.outputs.DOCKER_MYSQL_IMAGE_TAG }}
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
           MYSQL_DATABASE: mmbd
