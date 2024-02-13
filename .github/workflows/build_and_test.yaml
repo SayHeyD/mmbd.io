@@ -25,12 +25,12 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: $NODE_VERSION
+          node-version: ${{ env.NODE_VERSION }}
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: $PHP_VERSION
+          php-version: ${{ env.PHP_VERSION }}
 
       - name: 'Install composer dependencies'
         run: composer install
@@ -65,7 +65,7 @@ jobs:
 
     services:
       mysql:
-        image: $DOCKER_MYSQL_IMAGE_TAG
+        image: ${{ env.DOCKER_MYSQL_IMAGE_TAG }}
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
           MYSQL_DATABASE: mmbd
@@ -104,7 +104,7 @@ jobs:
 
     services:
       mysql:
-        image: $DOCKER_MYSQL_IMAGE_TAG
+        image: ${{ env.DOCKER_MYSQL_IMAGE_TAG }}
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
           MYSQL_DATABASE: mmbd
