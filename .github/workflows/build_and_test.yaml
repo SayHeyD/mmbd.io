@@ -23,9 +23,9 @@ jobs:
       - name: Output env vars
         id: env
         run: |
-          echo "DOCKER_MYSQL_IMAGE_TAG=${{ env.DOCKER_MYSQL_IMAGE_TAG }}" >> "GITHUB_OUTPUT"
-          echo "NODE_VERSION=${{ env.NODE_VERSION }}" >> "GITHUB_OUTPUT"
-          echo "PHP_VERSION=${{ env.PHP_VERSION }}" >> "GITHUB_OUTPUT"
+          Write-Output "DOCKER_MYSQL_IMAGE_TAG=" >> $DOCKER_MYSQL_IMAGE_TAG:GITHUB_OUTPUT
+          Write-Output "NODE_VERSION=" >> $NODE_VERSION:GITHUB_OUTPUT
+          Write-Output "PHP_VERSION=" >> $PHP_VERSION:GITHUB_OUTPUT
 
   test:
     name: test
