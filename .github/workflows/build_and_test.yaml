@@ -10,33 +10,10 @@ on:
       - dev
 
 env:
-  DOCKER_MYSQL_IMAGE_TAG: mysql:8.3
   NODE_VERSION: 21.6.1
   PHP_VERSION: 8.3
 
 jobs:
-  prepare:
-    name: prepare
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Output env vars
-        id: env
-        run: |
-          echo "DOCKER_MYSQL_IMAGE_TAG=${{ env.DOCKER_MYSQL_IMAGE_TAG }}\n" >> $GITHUB_OUTPUT
-          echo "NODE_VERSION=${{ env.NODE_VERSION }}\n" >> $GITHUB_OUTPUT
-          echo "PHP_VERSION=${{ env.PHP_VERSION }}\n" >> $GITHUB_OUTPUT
-
-  test:
-    name: test
-    needs: prepare
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: test
-        run: echo $GITHUB_OUTPUT
-      - name: test
-        run: echo ${{ needs.prepare.outputs.DOCKER_MYSQL_IMAGE_TAG }}
 
   build:
     name: build
@@ -89,7 +66,7 @@ jobs:
 
     services:
       mysql:
-        image: ${{ needs.prepare.outputs.DOCKER_MYSQL_IMAGE_TAG }}
+        image: mysql:8.3
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
           MYSQL_DATABASE: mmbd
@@ -128,7 +105,7 @@ jobs:
 
     services:
       mysql:
-        image: ${{ needs.prepare.outputs.DOCKER_MYSQL_IMAGE_TAG }}
+        image: mysql:8.3
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
           MYSQL_DATABASE: mmbd
