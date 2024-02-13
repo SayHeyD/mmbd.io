@@ -23,9 +23,9 @@ jobs:
       - name: Output env vars
         id: env
         run: |
-          Write-Output "DOCKER_MYSQL_IMAGE_TAG=" >> $DOCKER_MYSQL_IMAGE_TAG:GITHUB_OUTPUT
-          Write-Output "NODE_VERSION=" >> $NODE_VERSION:GITHUB_OUTPUT
-          Write-Output "PHP_VERSION=" >> $PHP_VERSION:GITHUB_OUTPUT
+          echo "DOCKER_MYSQL_IMAGE_TAG=${{ env.DOCKER_MYSQL_IMAGE_TAG }}\n" >> $GITHUB_OUTPUT
+          echo "NODE_VERSION=${{ env.NODE_VERSION }}\n" >> $GITHUB_OUTPUT
+          echo "PHP_VERSION=${{ env.PHP_VERSION }}\n" >> $GITHUB_OUTPUT
 
   test:
     name: test
@@ -33,6 +33,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: test
+        run: echo
       - name: test
         run: echo ${{ needs.prepare.outputs.DOCKER_MYSQL_IMAGE_TAG }}
 
