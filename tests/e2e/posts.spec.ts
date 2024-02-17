@@ -11,7 +11,7 @@ test('An unauthenticated user can create a new post', async ({ page, context }) 
   await page.getByRole('button', { name: 'Get your link!' }).isVisible();
   await page.getByRole('button', { name: 'Get your link!' }).click();
   await page.waitForURL('**/success', {
-    waitUntil: 'networkidle',
+    waitUntil: 'domcontentloaded',
   });
   await page.getByRole('heading', { name: 'Your post is ready! 🎉' }).isVisible();
   await page.getByTestId('copyUrl').click();
@@ -23,6 +23,6 @@ test('An unauthenticated user can create a new post', async ({ page, context }) 
   await page.goto(clipboardContent);
   await page.getByRole('link', { name: 'Create a new post' }).click();
   await page.waitForURL('**/', {
-    waitUntil: 'networkidle',
+    waitUntil: 'domcontentloaded',
   });
 });
