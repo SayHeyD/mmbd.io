@@ -43,7 +43,7 @@ const copyUrl = () => {
 
         <div @click="copyUrl" class="flex mb-4 w-full items-center">
           <TextInput class="w-full dark:text-gray-600" :value="url" disabled />
-          <Copy class="cursor-pointer ml-4 h-8 w-8" />
+          <Copy data-testid="copyUrl" class="cursor-pointer ml-4 h-8 w-8" />
         </div>
 
         <Link :href="route('index')" class="p-4 rounded bg-gray-800 hover:underline dark:bg-gray-200 text-gray-200 dark:text-gray-800">Create a new post</Link>
