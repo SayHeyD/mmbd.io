@@ -73,9 +73,16 @@ jobs:
           - 3306:3306
 
     steps:
-      # - uses: actions/checkout@v4
-
       - uses: actions/download-artifact@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.PHP_VERSION }}
 
       - name: Move artifact files to current dir
         run: mv installation_artifacts/* ./ && rm -r installation_artifacts
@@ -120,9 +127,16 @@ jobs:
           - 3306:3306
 
     steps:
-      - uses: actions/checkout@v4
-
       - uses: actions/download-artifact@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.PHP_VERSION }}
 
       - name: 'Start inertia SSR Server'
         run: php artisan inertia:start-ssr > /dev/null &
