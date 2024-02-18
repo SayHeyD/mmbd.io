@@ -1,19 +1,7 @@
-import {firefox, test} from '@playwright/test';
+import {test} from '@playwright/test';
 import common from './common';
 
 test('An unauthenticated user can create a new post', async ({ page, context }) => {
-
-  const browser = await firefox.launch({
-    args: [
-      '"dom.events.testing.asyncClipboard": true'
-    ]
-  })
-
-  // Don't run code in firefox
-  if (context.browser().browserType().name() != 'firefox') {
-    // Grant clipboard permissions to browser context
-    await context.grantPermissions(['clipboard-read']);
-  }
 
   await page.goto(`${common.appUrl}/`);
   await page.getByPlaceholder('https://tiktok.com/').click();
@@ -27,10 +15,15 @@ test('An unauthenticated user can create a new post', async ({ page, context }) 
   await page.getByTestId('copyUrl').click();
   await page.getByText('URL Copied!').isVisible();
 
-  const handle = await page.evaluateHandle(() => navigator.clipboard.readText());
-  const clipboardContent = await handle.jsonValue();
+  if (context.browser().browserType().name() != 'firefox') {
+    const handle = await page.evaluateHandle(() => navigator.clipboard.readText());
+    const clipboardContent = await handle.jsonValue();
+    await page.goto(clipboardContent);
+  } else {
+    const postUrl = await page.getByTestId('copyUrlInput').inputValue();
+    await page.goto(postUrl);
+  }
 
-  await page.goto(clipboardContent);
   await page.getByRole('link', { name: 'Create a new post' }).click();
   await page.waitForURL('**/', {
     waitUntil: 'domcontentloaded',
