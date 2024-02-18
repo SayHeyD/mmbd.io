@@ -58,6 +58,7 @@ class Post extends Model
     public static function getYoutubeUrl(string $url): string|null
     {
         $parsedUrl = parse_url($url);
+        $queryParameters = [];
 
         if (array_key_exists('query', $parsedUrl)) {
             $urlQueries = $parsedUrl['query'];

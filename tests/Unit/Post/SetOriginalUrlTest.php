@@ -29,6 +29,23 @@ class SetOriginalUrlTest extends TestCase
     }
 
     /**
+     * Tests if a YouTube video url generated from a mobile 'copy link' button gets parsed correctly
+     * (https://youtu.be/0jYQ58e1yXs)
+     *
+     * @test
+     */
+    public function set_original_url_sets_correct_url_with_mobile_copy_link_youtube_video_url()
+    {
+        $originalShareYouTubeUrl = 'https://youtu.be/0jYQ58e1yXs';
+
+        $post = app(Post::class);
+
+        $post->setOriginalUrl($originalShareYouTubeUrl);
+
+        $this->assertEquals($this->expectedNormalYoutubeUrl, $post->original_url);
+    }
+
+    /**
      * Tests if a YouTube video url generated from a share button gets parsed correctly
      * (https://youtu.be/0jYQ58e1yXs?si=webTBvCxRVKMMjav)
      *
