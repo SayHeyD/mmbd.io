@@ -1,9 +1,19 @@
-import { test } from '@playwright/test';
+import {firefox, test} from '@playwright/test';
 import common from './common';
 
 test('An unauthenticated user can create a new post', async ({ page, context }) => {
-  // Grant clipboard permissions to browser context
-  await context.grantPermissions(['clipboard-read']);
+
+  const browser = await firefox.launch({
+    args: [
+      '"dom.events.testing.asyncClipboard": true'
+    ]
+  })
+
+  // Don't run code in firefox
+  if (context.browser().browserType().name() != 'firefox') {
+    // Grant clipboard permissions to browser context
+    await context.grantPermissions(['clipboard-read']);
+  }
 
   await page.goto(`${common.appUrl}/`);
   await page.getByPlaceholder('https://tiktok.com/').click();
