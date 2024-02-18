@@ -78,7 +78,7 @@ jobs:
       - uses: actions/download-artifact@v4
 
       - name: Move artifact files to current dir
-        run: mv installation_artifacts/* ./ && rm installation_artifacts
+        run: mv installation_artifacts/* ./ && rm -r installation_artifacts
 
       - name: Display structure of downloaded files
         run: ls -alh
