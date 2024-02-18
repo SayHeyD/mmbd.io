@@ -34,7 +34,13 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: {
+        contextOptions: {
+          // chromium-specific permissions
+          permissions: ['clipboard-read'],
+        },
+        ...devices['Desktop Chrome']
+      },
     },
 
     {
@@ -44,7 +50,13 @@ export default defineConfig({
 
     {
       name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
+      use: {
+        contextOptions: {
+          // chromium-specific permissions
+          permissions: ['clipboard-read'],
+        },
+        ...devices['Desktop Safari']
+      },
     },
 
     /* Test against mobile viewports. */
