@@ -42,7 +42,7 @@ const copyUrl = () => {
         <h3 class="text-xl mb-4">Your post is ready! 🎉</h3>
 
         <div @click="copyUrl" class="flex mb-4 w-full items-center">
-          <TextInput class="w-full dark:text-gray-600" :value="url" disabled />
+          <TextInput data-testid="copyUrlInput" class="w-full dark:text-gray-600" :value="url" disabled />
           <Copy data-testid="copyUrl" class="cursor-pointer ml-4 h-8 w-8" />
         </div>
 
