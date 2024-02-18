@@ -78,8 +78,8 @@ jobs:
       - name: 'Migrate database'
         run: php artisan migrate --seed
 
-      - name: 'Generate admin users'
-        run: php artisan admin:create-admin-user "Admin User" "admin@example.com"
+      - name: 'Generate playwright test users'
+        run: php artisan playwright:create-users
 
       - name: 'Start octane server'
         run: php artisan octane:start > /dev/null &
