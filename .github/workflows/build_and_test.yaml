@@ -85,7 +85,7 @@ jobs:
           php-version: ${{ env.PHP_VERSION }}
 
       - name: Move artifact files to current dir
-        run: mv installation_artifacts/* installation_artifacts/.* ./ && rm -r installation_artifacts
+        run: mv installation_artifacts/{*,.[^.]*} ./ && rm -r installation_artifacts
 
       - name: Display structure of downloaded files
         run: ls -alh
