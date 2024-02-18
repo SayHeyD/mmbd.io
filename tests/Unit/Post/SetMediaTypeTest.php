@@ -27,7 +27,7 @@ class SetMediaTypeTest extends TestCase
     }
 
     /**
-     * Tests if the model field 'type' gets set to tiktok
+     * Tests if the model field 'type' gets set to TikTok
      * (https://www.youtube.com/watch?v=0jYQ58e1yXs)
      *
      * @test
