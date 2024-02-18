@@ -87,6 +87,9 @@ jobs:
       - name: Move artifact files to current dir
         run: mv installation_artifacts/{*,.[^.]*} ./ && rm -r installation_artifacts
 
+      - name: Make files executable
+        run: find . -type f -iname "+(playwright|artisan)" -exec chmod +x {} \;
+
       - name: Display structure of downloaded files
         run: ls -alh
 
