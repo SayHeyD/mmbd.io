@@ -78,7 +78,7 @@ jobs:
       - uses: actions/download-artifact@v4
 
       - name: Display structure of downloaded files
-        run: ls -R
+        run: ls -alh
 
       - name: 'Migrate database'
         run: php artisan migrate --seed
