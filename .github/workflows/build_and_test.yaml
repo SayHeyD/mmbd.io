@@ -17,7 +17,6 @@ jobs:
 
   e2e_tests:
     name: e2e_tests
-    needs: build
     timeout-minutes: 60
     runs-on: ubuntu-latest
 
@@ -60,7 +59,6 @@ jobs:
 
   php_test:
     name: php_test
-    needs: build
     runs-on: ubuntu-latest
 
     services:
