@@ -34,8 +34,8 @@ jobs:
 
       - uses: ./.github/actions/setup
 
-      - name: Display structure of downloaded files
-        run: ls -alh
+      - name: Install playwright
+        run: npx playwright install
 
       - name: 'Migrate database'
         run: php artisan migrate --seed
