@@ -35,7 +35,7 @@ jobs:
       - uses: ./.github/actions/setup
 
       - name: Install playwright
-        run: npx playwright install
+        run: npx playwright install --with-deps
 
       - name: 'Migrate database'
         run: php artisan migrate --seed
