@@ -30,6 +30,8 @@ jobs:
           - 3306:3306
 
     steps:
+      - uses: actions/checkout@v4
+
       - uses: ./.github/actions/setup
 
       - name: Display structure of downloaded files
@@ -71,6 +73,8 @@ jobs:
           - 3306:3306
 
     steps:
+      - uses: actions/checkout@v4
+
       - uses: ./.github/actions/setup
 
       - name: Move artifact files to current dir
