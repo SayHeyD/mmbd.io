@@ -77,9 +77,6 @@ jobs:
 
       - uses: ./.github/actions/setup
 
-      - name: Move artifact files to current dir
-        run: mv installation_artifacts/{*,.[^.]*} ./ && rm -r installation_artifacts
-
       - name: 'Start inertia SSR Server'
         run: php artisan inertia:start-ssr > /dev/null &
 
