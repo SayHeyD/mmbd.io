@@ -15,48 +15,6 @@ env:
 
 jobs:
 
-  build:
-    name: build
-    runs-on: ubuntu-latest
-
-    steps:
-
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ env.PHP_VERSION }}
-
-      - name: 'Install composer dependencies'
-        run: composer install
-
-      - name: 'Install npm dependencies'
-        run: npm ci
-
-      - name: 'Build frontend'
-        run: npm run build
-
-      - name: 'Create .env file'
-        run: cp .env.ci .env
-
-      - name: 'Generate laravel app key'
-        run: php artisan key:generate
-
-      - name: 'Install octane'
-        run: php artisan octane:install --no-interaction --server=roadrunner
-
-      - name: Archive installation artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: installation_artifacts
-          path: |
-            ./
-
   e2e_tests:
     name: e2e_tests
     needs: build
@@ -73,22 +31,7 @@ jobs:
           - 3306:3306
 
     steps:
-      - uses: actions/download-artifact@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ env.PHP_VERSION }}
-
-      - name: Move artifact files to current dir
-        run: mv installation_artifacts/{*,.[^.]*} ./ && rm -r installation_artifacts
-
-      - name: Make files executable
-        run: find . -type f -iname "**/+(playwright)" -exec chmod +x {} \;
+      - uses: ../actions/setup
 
       - name: Display structure of downloaded files
         run: ls -alh
@@ -130,16 +73,7 @@ jobs:
           - 3306:3306
 
     steps:
-      - uses: actions/download-artifact@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ env.PHP_VERSION }}
+      - uses: ../actions/setup
 
       - name: Move artifact files to current dir
         run: mv installation_artifacts/{*,.[^.]*} ./ && rm -r installation_artifacts
