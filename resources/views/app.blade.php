@@ -15,7 +15,7 @@
         @vite(['resources/js/app.js', "resources/js/Pages/{$page['component']}.vue"])
         @inertiaHead
     </head>
-    <body class="font-sans antialiased">
+    <body class="font-sans antialiased text-gray-900 dark:text-gray-200">
         <noscript>
             <p>mmbd.io needs javascript to run properly, please activate javascript and refresh the page</p>
         </noscript>
