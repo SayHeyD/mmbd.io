@@ -15,6 +15,8 @@ test('An unauthenticated user can create a new post', async ({ page, context }) 
   await page.getByTestId('copyUrl').click();
   await page.getByText('URL Copied!').isVisible();
 
+  // WebKit: Doesn't offer proper support for clipboard reads in CI environments
+  // FireFox: Doesn't offer an easy way to allow clipboard reads
   if (context.browser().browserType().name() == 'chromium') {
     const handle = await page.evaluateHandle(() => navigator.clipboard.readText());
     const clipboardContent = await handle.jsonValue();
