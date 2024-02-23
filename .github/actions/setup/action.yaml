@@ -1,0 +1,50 @@
+name: 'Setup'
+description: 'Setup Laravel project, install dependencies'
+inputs: {}
+  # None
+  #
+  #  who-to-greet:
+  #    description: 'Who to greet'
+  #    required: true
+  #    default: 'World'
+outputs: {}
+  # None
+  #
+  #  random-number:
+  #    description: "Random number"
+  #    value: ${{ steps.random-number-generator.outputs.random-number }}
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ env.PHP_VERSION }}
+
+    - name: 'Install composer dependencies'
+      shell: bash
+      run: composer install
+
+    - name: 'Install npm dependencies'
+      shell: bash
+      run: npm ci
+
+    - name: 'Build frontend'
+      shell: bash
+      run: npm run build
+
+    - name: 'Create .env file'
+      shell: bash
+      run: cp .env.ci .env
+
+    - name: 'Generate laravel app key'
+      shell: bash
+      run: php artisan key:generate
+
+    - name: 'Install octane'
+      shell: bash
+      run: php artisan octane:install --no-interaction --server=roadrunner
