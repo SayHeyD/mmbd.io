@@ -1,9 +1,6 @@
 name: 'Build and test app'
 
 on:
-  push:
-    branches:
-      - playwright-e2e-tests
   pull_request:
     branches:
       - main
