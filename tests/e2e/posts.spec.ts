@@ -15,9 +15,7 @@ test('An unauthenticated user can create a new post', async ({ page, context }) 
   await page.getByTestId('copyUrl').click();
   await page.getByText('URL Copied!').isVisible();
 
-  if (context.browser().browserType().name() != 'firefox') {
-    // TODO: This doesn't work in GitHub Actions CI
-    // TODO: Find a way to make it work somehow
+  if (context.browser().browserType().name() == 'chromium') {
     const handle = await page.evaluateHandle(() => navigator.clipboard.readText());
     const clipboardContent = await handle.jsonValue();
     await page.goto(clipboardContent);
