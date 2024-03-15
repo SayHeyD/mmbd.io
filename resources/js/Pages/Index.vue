@@ -4,6 +4,7 @@ import TextInput from "@/Components/TextInput.vue";
 import VueHoneypot from 'vue-honeypot'
 import {ref} from "vue";
 import PublicLayout from "@/Layouts/PublicLayout.vue";
+import PlatformDetector from "@/Components/Index/PlatformDetector.vue";
 
 defineProps({
     canLogin: Boolean,
@@ -51,6 +52,8 @@ const submitForm = () => {
                 <li v-text="form.errors['link']"></li>
               </ul>
             </div>
+
+            <PlatformDetector :url="form.link" class="mt-4 mb-8" />
 
             <vue-honeypot ref="honeypot" />
 
