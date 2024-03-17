@@ -14,18 +14,25 @@ const props = defineProps({
 })
 
 watch(() => props.url, async (newUrl) => {
-    if (newUrl === '') {
-        platform.value = ''
-    }
-    Object.keys(page.props.supported_platforms).forEach(key => {
+
+    const platforms = page.props.supported_platforms
+
+    platformDetection: for (let platformIndex = 0; platformIndex < Object.keys(platforms).length; platformIndex++) {
+        const platformKey = Object.keys(platforms)[platformIndex]
+        const detectedPlatform = platforms[platformKey]
 
         // Iterate through URLs of platforms
-        page.props.supported_platforms[key].urls.forEach(url => {
+        for (let urlIndex = 0; urlIndex < detectedPlatform.urls.length; urlIndex++) {
+            const url = detectedPlatform.urls[urlIndex]
+
             if (newUrl.includes(url)) {
-                platform.value = key
+                platform.value = platformKey
+                break platformDetection;
+            } else {
+                platform.value = ''
             }
-        })
-    });
+        }
+    }
 })
 
 </script>
