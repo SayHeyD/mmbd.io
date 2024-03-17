@@ -92,9 +92,4 @@ class PostController extends Controller
     {
         //
     }
-
-    public function showSupportedPlatformsJson()
-    {
-        return Json::encode(config('supported_platforms.platforms'));
-    }
 }
