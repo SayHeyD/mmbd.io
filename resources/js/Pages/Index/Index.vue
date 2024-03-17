@@ -57,7 +57,7 @@ const submitForm = () => {
 
             <vue-honeypot ref="honeypot" />
 
-            <button class="bg-green-700 text-gray-200 mx-auto p-4 rounded" type="submit">Get your link!</button>
+            <button class="bg-green-700 text-gray-200 hover:underline mx-auto p-4 rounded" type="submit">Get your link!</button>
           </form>
         </div>
       </div>
