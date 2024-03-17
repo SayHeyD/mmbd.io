@@ -4,7 +4,7 @@ import TextInput from "@/Components/TextInput.vue";
 import VueHoneypot from 'vue-honeypot'
 import {ref} from "vue";
 import PublicLayout from "@/Layouts/PublicLayout.vue";
-import PlatformDetector from "@/Components/Index/PlatformDetector.vue";
+import PlatformDetector from "@/Pages/Index/PlatformDetector.vue";
 
 defineProps({
     canLogin: Boolean,
