@@ -7,6 +7,7 @@ use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Casts\Json;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -90,5 +91,10 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         //
+    }
+
+    public function showSupportedPlatformsJson()
+    {
+        return Json::encode(config('supported_platforms.platforms'));
     }
 }
