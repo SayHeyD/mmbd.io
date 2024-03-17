@@ -39,6 +39,7 @@ class StorePostRequest extends FormRequest
     {
         return [
             'link.required' => 'You must enter a link to a post.',
+            'link.url' => 'You must enter a valid URL.',
         ];
     }
 }
