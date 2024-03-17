@@ -38,7 +38,8 @@ class HandleInertiaRequests extends Middleware
                 'location' => $request->url(),
             ],
             'canLogin' => Route::has('login'),
-            'canRegister' => Route::has('register')
+            'canRegister' => Route::has('register'),
+            'supported_platforms' => config('supported_platforms.platforms')
         ];
     }
 }
