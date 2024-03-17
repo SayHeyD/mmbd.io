@@ -42,7 +42,7 @@ class UrlIsSupportedPlatform implements ValidationRule
             }
         }
 
-        $fail('The :attribute must be a supported and valid URL');
+        $fail('The :attribute must be an URL from a supported platform');
     }
 
     private function validYouTubeUrl(string $url): bool
