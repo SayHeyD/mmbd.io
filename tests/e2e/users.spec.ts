@@ -1,11 +1,6 @@
 import {expect, test} from '@playwright/test';
 import common from './common';
 
-const testEmails = {
-  chromium: 'david+chromium@docampo.ch',
-  firefox: 'david+firefox@docampo.ch',
-  webkit: 'david+webkit@docampo.ch',
-}
 
 test('Admin user can reset password', async ({ page, context }) => {
   await page.goto(`${common.appUrl}/login`);
