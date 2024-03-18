@@ -32,7 +32,9 @@ class PlaywrightCreateUsers extends Command
         $emails = [
             'david+webkit@docampo.ch',
             'david+firefox@docampo.ch',
-            'david+chromium@docampo.ch'
+            'david+chromium@docampo.ch',
+            'david+mobile-chrome@docampo.ch',
+            'david+mobile-safari@docampo.ch'
         ];
 
         foreach ($emails as $email) {
