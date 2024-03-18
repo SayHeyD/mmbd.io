@@ -9,13 +9,19 @@ test('Admin user can reset password', async ({ page, context }) => {
 
   switch (context.browser().browserType().name()) {
     case 'chromium':
-      await page.getByLabel('Email').fill(testEmails.chromium);
+      await page.getByLabel('Email').fill(common.testEmails.chromium);
       break
     case 'firefox':
-      await page.getByLabel('Email').fill(testEmails.firefox);
+      await page.getByLabel('Email').fill(common.testEmails.firefox);
       break
     case 'webkit':
-      await page.getByLabel('Email').fill(testEmails.webkit);
+      await page.getByLabel('Email').fill(common.testEmails.webkit);
+      break
+    case 'Mobile Chrome':
+      await page.getByLabel('Email').fill(common.testEmails.mobileChrome);
+      break
+    case 'Mobile Safari':
+      await page.getByLabel('Email').fill(common.testEmails.mobileSafari);
       break
   }
 
