@@ -19,7 +19,7 @@ defineProps({
 
         <div class="w-full sm:max-w-2xl mt-6 p-6 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg prose dark:prose-invert" v-html="howItWorks" />
 
-        <Link :href="route('index')" class="p-4 my-8 rounded bg-gray-800 hover:underline dark:bg-gray-200 text-gray-200 dark:text-gray-800">Go back</Link>
+        <Link :href="route('index')" data-testid="go-back-button" class="p-4 my-8 rounded bg-gray-800 hover:underline dark:bg-gray-200 text-gray-200 dark:text-gray-800">Go back</Link>
 
       </div>
     </div>
