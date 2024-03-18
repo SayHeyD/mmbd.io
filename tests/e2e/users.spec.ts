@@ -7,6 +7,8 @@ test('Admin user can reset password', async ({ page, context }) => {
   await page.getByRole('link', { name: 'Forgot your password?' }).click();
   await page.waitForURL('**/forgot-password');
 
+  // Single email for each browser is needed to avoid email reset timeouts,
+  // since tests are executed in parallel
   switch (context.browser().browserType().name()) {
     case 'chromium':
       await page.getByLabel('Email').fill(common.testEmails.chromium);
