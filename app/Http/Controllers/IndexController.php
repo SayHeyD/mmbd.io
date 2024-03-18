@@ -10,9 +10,6 @@ class IndexController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Index', [
-            'canLogin' => Route::has('login'),
-            'canRegister' => Route::has('register')
-        ]);
+        return Inertia::render('Index/Index');
     }
 }

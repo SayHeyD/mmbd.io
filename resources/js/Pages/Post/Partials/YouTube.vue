@@ -57,7 +57,7 @@ const getThumbnailUrl = () => {
   <div v-else class="iframe-container">
     <iframe sandbox="allow-scripts allow-same-origin"
             allowfullscreen="allowfullscreen"
-            class="responsive-iframe" :src="getEmbedUrl()" />
+            class="responsive-iframe landscape:mx-auto" :src="getEmbedUrl()" />
   </div>
 </template>
 

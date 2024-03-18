@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Inertia\Middleware;
 use Tightenco\Ziggy\Ziggy;
 
@@ -36,6 +37,9 @@ class HandleInertiaRequests extends Middleware
                 ...(new Ziggy)->toArray(),
                 'location' => $request->url(),
             ],
+            'canLogin' => Route::has('login'),
+            'canRegister' => Route::has('register'),
+            'supported_platforms' => config('supported_platforms.platforms')
         ];
     }
 }
